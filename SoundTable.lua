@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------
 --
 -- SoundTable.lua
--- Developers:   Jonathan L. Joiner, Chris Odom, Davis Toomey, Alexander Martin
+-- Developers:  Jonathan L. Joiner, Chris Odom, Davis Toomey, Alexander Martin
 -- Team:		High Five
 -- Description: Ball and Paddle Game. Get the ball to "escape" the top of the map by getting past bricks that must be hit by the ball to be broken.
 -- Class:       CS371-01
@@ -14,7 +14,9 @@
 
 -- Declare soundTable to load sounds from
 local soundTable = {
-	startMusic = audio.loadSound("StartMusic.mp3"),
+	startMusic = audio.loadSound("Sounds/StartMusic.mp3"),
+	gameMusic = audio.loadSound("Sounds/GameMusic.mp3"),
+	endMusic = audio.loadSound("Sounds/EndMusic.mp3"),
 }
 
 -- Return the soundTable

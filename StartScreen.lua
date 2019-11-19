@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------
 --
 -- StartScreen.lua
--- Developers:   Jonathan L. Joiner, Chris Odom, Davis Toomey, Alexander Martin
+-- Developers:  Jonathan L. Joiner, Chris Odom, Davis Toomey, Alexander Martin
 -- Team:		High Five
 -- Description: Ball and Paddle Game. Get the ball to "escape" the top of the map by getting past bricks that must be hit by the ball to be broken.
 -- Class:       CS371-01
@@ -45,6 +45,33 @@ local function StartGame(event)
  	-- Call Function to go to GameScreen
  	composer.gotoScene("GameScreen",switch)
  end
+
+
+local function scaleLogo(logo)
+	-- Declare boolean to be used when swapping between functions
+	local isLowScale = true
+
+	-- Declare clock value to determine how long scaling of logo takes
+	local clock = 200
+
+	-- Function to determine which way to scale logo
+	local function determineScale()
+		-- Test if isLowScale is true
+		if logo.xScale < 0.6 then
+			-- Set xScale and yScale
+			logo.xScale = logo.xScale + 0.005
+			logo.yScale = logo.yScale + 0.005
+
+		elseif logo.xScale > 0.595 then -- If isLowScale is false
+			-- Set xScale and yScale
+			logo.xScale = logo.xScale - 0.005
+			logo.yScale = logo.yScale - 0.005
+		end
+	end
+
+	-- Call determineScale infinitely with delay
+	timer.performWithDelay(clock, determineScale, -1)
+end
 
 -- Function to generate animating balls for the background
 local function generateBalls(event)
@@ -96,8 +123,7 @@ end
 -- -----------------------------------------------------------------------------------
  
 -- create()
-function scene:create( event )
- 
+function scene:create( event ) 
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
 
@@ -109,13 +135,13 @@ function scene:create( event )
 	};
 
 	-- Create sheet object for logo 
-	local sheet = graphics.newImageSheet( "BILogo.png", logoOptions );
+	local sheet = graphics.newImageSheet( "Images/BILogo.png", logoOptions );
 	
 	-- Declare logo
 	local logo = display.newImage(sheet, 1);
 
-	-- Scale the logos sizs
-	logo:scale(.5,.5)
+	-- Scale the logo's size
+	logo:scale(.595,.595)
 
 	-- Specify logo position dynamically
 	logo.x= display.contentWidth/ 2;
@@ -156,11 +182,13 @@ function scene:create( event )
 		strokeColor = { default = {.8, .2, .8, 0.5}, over = {1, 1, 1, 1}},
 		strokeWidth = 2
 	})
+	-- Call function to scale logo
+	timer.performWithDelay(1000, function(e) scaleLogo(logo) end)
 
 	-- Call function to display balls in background
 	timer.performWithDelay(1000, generateBalls)
 
-	-- Insert display objects into sceneGroup so it will be deleted when destroy function is calle
+	-- Insert display objects into sceneGroup so it will be deleted when destroy function is called
     sceneGroup:insert(ballGroup)
 	sceneGroup:insert(logo)
     sceneGroup:insert(startButton)
