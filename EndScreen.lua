@@ -101,11 +101,30 @@ function scene:create( event )
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
 
+    -- Function to return to main screen
+    local startButton = widget.newButton(
+    {
+        label = "Main Menu",
+        font = "Papyrus",
+        labelColor = { default = {.9, .7, .7,  1}, over = {0.6, 0.3, 0.3, 0.9}},
+        x = display.contentCenterX,
+        y = display.contentCenterY + 100,
+        onPress = ReturnToStart,
+        shape = "RoundedRect",
+        cornerRadius = 25   ,
+        width = display.contentWidth/2.5,
+        height = display.contentHeight/13,
+        fillColor = { default = {.8,0,.8, 0.6}, over = {0.3, 0.3, 1, 1}},
+        strokeColor = { default = {.8, .2, .8, 0.5}, over = {1, 1, 1, 1}},
+        strokeWidth = 2
+    })
+
     -- Call function to display balls in background
     timer.performWithDelay(1000, generateBalls)
 
     -- Insert display objects into sceneGroup so it will be deleted when destroy function is called
     sceneGroup:insert(ballGroup)
+    sceneGroup:insert(startButton)
 end
  
  

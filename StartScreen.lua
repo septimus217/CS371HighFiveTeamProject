@@ -46,7 +46,7 @@ local function StartGame(event)
  	composer.gotoScene("GameScreen",switch)
  end
 
-
+-- Function to scale logo up and down
 local function scaleLogo(logo)
 	-- Declare boolean to be used when swapping between functions
 	local isLowScale = true
